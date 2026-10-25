@@ -222,3 +222,44 @@ function showProject(id) {
     </div>`;
 }
 
+//Observation table/source docs/filtering
+function showEvidence() {
+  app.innerHTML = `
+    <h1>Evidence ledger</h1>
+    <p class="intro">Every figure in the app and where it came from: Retrieved is the day I looked at the document and published is when the document came out.</p>
+    <div class="filters">
+      <select id="src" aria-label="Filter by source">
+        <option value="">All sources</option>
+        ${data.sources.map(s => `<option value="${s.id}">${esc(s.title)}</option>`).join('')}
+      </select>
+    </div>
+    <div id="rows"></div>
+    <h2>Sources</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Document</th><th>Type</th><th>Published</th></tr></thead>
+      <tbody>${data.sources.map(s => `<tr>
+        <td>${link(s.url, s.title)}<br><span class="small muted">${esc(s.org)}</span></td>
+        <td>${esc(s.type)}</td><td>${niceDate(s.publicationDate)}</td></tr>`).join('')}</tbody>
+    </table></div>`;
+
+  const select = document.getElementById('src');
+  function drawRows() {
+    const list = data.observations.filter(o => !select.value || o.sourceId === select.value);
+    document.getElementById('rows').innerHTML = `
+      <p class="small muted">${list.length} records</p>
+      <div class="scroll"><table>
+        <thead><tr><th>Subject</th><th class="right">Value</th><th>Measure</th><th>Location in source</th><th>Published</th><th>Retrieved</th></tr></thead>
+        <tbody>${list.map(o => `<tr>
+          <td>${esc(subjectName(o.projectId))}</td>
+          <td class="right">${money(o.value)}</td>
+          <td>${esc(data.metrics[o.metricType].label)}</td>
+          <td>${esc(o.sourceLocator)}<br>${link(getSource(o.sourceId).url, 'View original source')}</td>
+          <td>${niceDate(o.publicationDate)}</td>
+          <td>${niceDate(o.retrievedAt)}</td>
+        </tr>`).join('')}</tbody>
+      </table></div>`;
+  }
+  select.addEventListener('change', drawRows);
+  drawRows();
+}
+
