@@ -86,4 +86,31 @@ function findPairs() {
   return pairs;
 }
 
+//COMPARISON RULES////////////////
+// Returns { ok: false, reasons: [...] } or { ok: true, a, b, change, percent }
+// Only compares when both numbers mean the same thing.
+function compareRecords(x, y) {
+  const reasons = [];
+  if (x.id === y.id) reasons.push('You picked the same record twice.');
+  if (x.metricType !== y.metricType) {
+    reasons.push('They measure different things: "' + data.metrics[x.metricType].label + '" and "' + data.metrics[y.metricType].label + '".');
+  }
+  if (x.comparisonGroup !== y.comparisonGroup) reasons.push('They are about different projects or propositions.');
+  if (x.fiscalPeriod !== y.fiscalPeriod) reasons.push('They cover different periods.');
+  if (x.value === null || y.value === null) reasons.push('One of the values is missing.');
+  if (reasons.length > 0) return { ok: false, reasons };
+
+  const earlier = x.publicationDate <= y.publicationDate ? x : y;
+  const later = earlier === x ? y : x;
+  const change = later.value - earlier.value;
+  return {
+    ok: true,
+    earlier,
+    later,
+    change,
+    percent: earlier.value === 0 ? null : (change / earlier.value) * 100,
+    sameDate: earlier.publicationDate === later.publicationDate
+  };
+}
+
 
