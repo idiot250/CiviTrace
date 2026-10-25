@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CiviTrace</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <script src="index.js"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CiviTrace</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <a href="#/projects" class="logo">
+	CiviTrace
+      </a>
+
+      <nav>
+	<a href="#/projects" data-page="projects">Projects</a>
+	<a href="#/compare" data-page="compare">Compare</a>
+	<a href=#/evidence" data-page="evidence">Evidence ledger</a>
+      </nav>
+      <p class="disclaimer">CiviTrace is an indepdent, student-built project using public records. Not affiliated with the City of Sugar Land.</p>
+    </aside>
+    <main id="app">Loading...</main>
+  </div>
+  <script src="app.js"></script>
+</body>
 </html>
