@@ -15,13 +15,13 @@ Public infrastructure projects often involve multiple financial figures publishe
 Comparing them without accounting for these differences can create misleading impressions about how our public money is collected or spent. CiviTrace aims to address this problem by organizing published figures alongside their sources and applying explicit rules to financial comparisons.
 
 ## Features
-- **Project Explorer: **Search projects and filter them by bond proposition
-- **Financial Comparisons: **Compare published figures and calculate absolute/percentage differences when the records are comparable
-- **Evidence Ledger: **Examine individual records, publication dates, source documents, and locations within the documents
-- **Source-linked Records: **Users are able to open the original publications behind reported figures 
-- **Explicit comparison rules: **Reject comparisons between different metrics, projects, or periods instead of presenting potentially misleading calculations
--**Missing-data handling: **Distinguish an unreported figure from a value of $0
--**Methodology and limitations: **Document the definitions, assumptions, data-quality issues, and limitations behind the displayed results.
+- Project Explorer: Search projects and filter them by bond proposition
+- Financial Comparisons: Compare published figures and calculate absolute/percentage differences when the records are comparable
+- Evidence Ledger: Examine individual records, publication dates, source documents, and locations within the documents
+- Source-linked Records: Users are able to open the original publications behind reported figures 
+- Explicit comparison rules: Reject comparisons between different metrics, projects, or periods instead of presenting potentially misleading calculations
+- Missing-data handling: Distinguish an unreported figure from a value of $0
+- Methodology and limitations: Document the definitions, assumptions, data-quality issues, and limitations behind the displayed results.
 
 ## Scope
 
@@ -77,7 +77,7 @@ CiviTrace is an exploratory transparency tool, not an official financial reporti
 These limitations are part of the project's methodology: incomplete evidence should remain visible and transparent rather than being silently treated as certainty.
 
 ## In-Browser Demo
-![https://idiot250.github.io/civitrace]
+https://idiot250.github.io/civitrace
 
 ## Or run locally!
 
