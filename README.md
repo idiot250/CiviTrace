@@ -85,6 +85,13 @@ CiviTrace is a client-side web application built with HTML, CSS, JavaScript, and
 
 Requirements: Python 3 and a modern web browser.
 
+Supprted (tested) browsers:
+- Google Chrome
+- Brave
+- Firefox & Firefox Developer Edition & Firefox Nightly
+- Luakit
+- Qutebrowser
+
 Clone the repository:
 
 ```
