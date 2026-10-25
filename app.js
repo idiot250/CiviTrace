@@ -263,3 +263,82 @@ function showEvidence() {
   drawRows();
 }
 
+function showCompare(params) {
+  const startA = params.get('a') || 'o1';
+  const startB = params.get('b') || 'o2';
+
+  function options(selectedId) {
+    return data.observations.map(o => {
+      const s = getSource(o.sourceId);
+      return `<option value="${o.id}" ${o.id === selectedId ? 'selected' : ''}>${esc(subjectName(o.projectId))} (${esc(s.title.replace('Sugar Land - Missouri City Edition, ', 'CI '))})</option>`;
+    }).join('');
+  }
+
+  const pairs = findPairs();
+
+  app.innerHTML = `
+    <h1>Compare</h1>
+    <p class="intro">Pick two records. The app only works out a difference when both figures measure the same thing.</p>
+    <div class="filters">
+      <label class="field">Record A<select id="a">${options(startA)}</select></label>
+      <label class="field">Record B<select id="b">${options(startB)}</select></label>
+    </div>
+    <p class="small muted">To see a refusal, try <a href="#/compare?a=o2&b=o11">a proposition total against one project</a>.</p>
+    <div id="result"></div>
+    <h2>Pairs I can compare</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Subject</th><th class="right">Change</th><th></th></tr></thead>
+      <tbody>${pairs.map(([x, y]) => {
+        const r = compareRecords(x, y);
+        return `<tr><td>${esc(subjectName(x.projectId))}</td>
+          <td class="right">${signedMoney(r.change)}</td>
+          <td><a href="#/compare?a=${x.id}&b=${y.id}">Open</a></td></tr>`;
+      }).join('')}</tbody>
+    </table></div>`;
+
+  function drawResult() {
+    const x = getRecord(document.getElementById('a').value);
+    const y = getRecord(document.getElementById('b').value);
+    // keeps the address bar in sync so a comparison can be shared
+    history.replaceState(null, '', '#/compare?a=' + x.id + '&b=' + y.id);
+    const r = compareRecords(x, y);
+    const out = document.getElementById('result');
+
+    if (!r.ok) {
+      out.innerHTML = `<div class="note"><b>These can't be compared directly.</b>
+        <ul>${r.reasons.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>`;
+      return;
+    }
+
+    // if both numbers are from the same edition there is no real earlier/later
+    const names = r.sameDate ? ['Record A', 'Record B'] : ['Earlier record', 'Later record'];
+    const column = (rec, label) => `
+      <div>
+        <div class="small muted">${label}</div>
+        <div class="big">${money(rec.value)}</div>
+        <dl>
+          <dt>Measures</dt><dd>${esc(data.metrics[rec.metricType].label)}</dd>
+          <dt>Published</dt><dd>${niceDate(rec.publicationDate)}</dd>
+          <dt>Source</dt><dd>${esc(getSource(rec.sourceId).title)}</dd>
+          <dt>Location</dt><dd>${esc(rec.sourceLocator)}</dd>
+        </dl>
+        ${link(getSource(rec.sourceId).url, 'View original source')}
+      </div>`;
+
+    let percentText = '';
+    if (r.percent !== null && r.change !== 0) percentText = ' (' + (r.percent > 0 ? '+' : '−') + Math.abs(r.percent).toFixed(2) + '%)';
+
+    out.innerHTML = `
+      <div class="compare-cols">${column(r.earlier, names[0])}${column(r.later, names[1])}</div>
+      <h2>Result</h2>
+      <div class="big">${r.change === 0 ? 'No change' : signedMoney(r.change)}<span class="small muted">${percentText}</span></div>
+      <p>${r.change === 0 ? 'Both records print the same figure.' : 'The two records print different figures.'} A difference does not say whether something is good or bad.</p>
+      ${r.sameDate ? '<div class="note warn"><b>Same edition.</b> Both figures are in the same publication, so this is not a change over time. One page prints a rounded number, but I can\'t confirm that explains the whole gap.</div>' : ''}
+      <p class="small muted">Change = ${r.sameDate ? 'B − A' : 'later − earlier'}. Percent = change ÷ ${r.sameDate ? 'A' : 'earlier'}.</p>`;
+  }
+
+  document.getElementById('a').addEventListener('change', drawResult);
+  document.getElementById('b').addEventListener('change', drawResult);
+  drawResult();
+}
+
