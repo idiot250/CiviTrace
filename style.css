@@ -26,3 +26,103 @@ body{
   font: 15px/1.6 var(--sans);
 }
 
+a { color: var(--link); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+
+/* layout */
+.layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+
+.sidebar {
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.logo { color: var(--text); font-weight: 600; font-size: 17px; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.sidebar nav a { display: block; padding: 6px 10px; color: var(--text); text-decoration: none; border-left: 2px solid transparent; }
+.sidebar nav a:hover { background: #1c2631; }
+.sidebar nav a.active { background: #1d2b39; border-left-color: var(--link); }
+.disclaimer { margin-top: auto; font-size: 12px; color: var(--muted); }
+
+main { padding: 32px 40px 60px; max-width: 1000px; }
+
+/* text */
+h1 { font-size: 28px; margin: 0 0 8px; }
+h2 { font-size: 17px; margin: 32px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.intro { color: var(--muted); max-width: 65ch; }
+.small { font-size: 13px; }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+.back { font-size: 13px; }
+
+/* forms */
+input, select, button, .button {
+  font: inherit;
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 8px 10px;
+}
+button, .button { background: #1c2631; cursor: pointer; text-decoration: none; display: inline-block; }
+button:hover, .button:hover { border-color: var(--muted); }
+.filters { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+.filters input { flex: 1 1 240px; }
+.filters select { flex: 1 1 200px; min-width: 0; max-width: 100%; }
+.field { display: block; flex: 1 1 260px; font-size: 12px; color: var(--muted); }
+.field select { display: block; width: 100%; max-width: 100%; margin-top: 3px; }
+main { min-width: 0; }
+
+/* tables */
+.scroll { overflow-x: auto; }
+table {
+  width: 100%; border-collapse: collapse; font-size: 14px; 
+}
+th { text-align: left; font-weight: 500; font-size: 13px; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:hover td { background: var(--panel); }
+.right { text-align: right; }
+td.right { font-family: var(--mono); white-space: nowrap; }
+
+/* tags and notes */
+.tag { font-size: 13px; white-space: nowrap; }
+.tag::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; margin-right: 5px; }
+.green { color: var(--teal); }
+.yellow { color: var(--amber); }
+.grey { color: var(--muted); }
+.note { border-left: 3px solid var(--link); padding: 4px 14px; margin: 16px 0; color: var(--muted); }
+.note.warn { border-left-color: var(--amber); }
+.note b {
+  color: var(--text); font-weight: 500; 
+}
+
+/* project page */
+.two-col { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+.record { border-top: 1px solid var(--line); padding: 14px 0; }
+.record:first-child { border-top: 0; }
+.big { font: 600 26px var(--mono); margin: 2px 0 6px; }
+dl { display: grid; grid-template-columns: 90px 1fr; gap: 2px 12px; margin: 6px 0; font-size: 14px; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; }
+
+/* compare page */
+.compare-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; }
+
+@media (max-width: 800px) {
+  .layout { display: block; }
+  .sidebar { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px 16px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .sidebar nav { display: flex; flex-wrap: wrap; width: 100%; }
+  .sidebar nav a { border-left: 0; padding: 4px 8px; }
+  .disclaimer { display: none; }
+  main { padding: 20px 16px 40px; }
+  .two-col, .compare-cols { grid-template-columns: 1fr; gap: 10px; }
+}
