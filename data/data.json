@@ -1,0 +1,410 @@
+{
+ "meta": {
+  "dataNote": "Curated by hand from the public sources listed at the bottom of the Evidence ledger. Nobody scraped these and there is no city data feed. A person typed each figure into this file.",
+  "retrievedAt": "2026-10-24",
+  "trackerUrl": "https://www.sugarlandtx.gov/2819/Bond-Project-Tracker"
+ },
+ "metrics": {
+  "voter_authorization": {
+   "label": "Voter authorization",
+   "def": "The most a bond proposition lets the city borrow for a type of project. It is permission to borrow, not money spent."
+  },
+  "published_project_allocation": {
+   "label": "Published project allocation",
+   "def": "The amount a publication lists for one project inside a proposition. It is a planned amount, not a contract price or spending."
+  }
+ },
+ "propositions": [
+  {
+   "id": "prop-a",
+   "name": "Proposition A: Public safety"
+  },
+  {
+   "id": "prop-b",
+   "name": "Proposition B: Streets, sidewalks and mobility"
+  },
+  {
+   "id": "prop-c",
+   "name": "Proposition C: Drainage"
+  },
+  {
+   "id": "prop-d",
+   "name": "Proposition D: Municipal facilities"
+  },
+  {
+   "id": "prop-e",
+   "name": "Proposition E: Animal shelter"
+  },
+  {
+   "id": "bond-total",
+   "name": "Total 2024 bond package",
+   "program": true
+  }
+ ],
+ "sources": [
+  {
+   "id": "src-city-nov",
+   "title": "City Council Canvasses Election Results for Bond Propositions",
+   "org": "City of Sugar Land",
+   "publicationDate": "2024-11-19",
+   "url": "https://sugarlandtx.gov/CivicAlerts.asp?AID=1901",
+   "type": "Primary: official city news release"
+  },
+  {
+   "id": "src-ci-sep",
+   "title": "Sugar Land - Missouri City Edition, September 2024, p. 9",
+   "org": "Community Impact (content provided by the City of Sugar Land)",
+   "publicationDate": "2024-09",
+   "url": "https://editions.communityimpact.com/view/644574697/9/",
+   "type": "Secondary: newspaper reprint of city content"
+  },
+  {
+   "id": "src-ci-oct9",
+   "title": "Sugar Land - Missouri City Edition, October 2024, p. 9",
+   "org": "Community Impact (content provided by the City of Sugar Land)",
+   "publicationDate": "2024-10",
+   "url": "https://editions.communityimpact.com/view/544405486/9",
+   "type": "Secondary: newspaper reprint of city content"
+  },
+  {
+   "id": "src-ci-oct16",
+   "title": "Sugar Land - Missouri City Edition, October 2024, p. 16",
+   "org": "Community Impact (content provided by the City of Sugar Land)",
+   "publicationDate": "2024-10",
+   "url": "https://editions.communityimpact.com/view/544405486/16",
+   "type": "Secondary: newspaper reprint of city content"
+  }
+ ],
+ "projects": [
+  {
+   "id": "pstf-3",
+   "name": "Public Safety Training Facility Phase III",
+   "subject": "prop-a",
+   "category": "Public safety",
+   "description": "Third phase of the facility that lets the Police and Fire-EMS Departments train inside city limits."
+  },
+  {
+   "id": "pd-hq",
+   "name": "Renovation of Existing PD & Court Building + New PD Headquarters",
+   "subject": "prop-a",
+   "category": "Public safety",
+   "description": "Renovation of the police department and court building, plus a new police headquarters."
+  },
+  {
+   "id": "fire-apparatus",
+   "name": "Fire Apparatus Replacement & Rebuild",
+   "subject": "prop-a",
+   "category": "Public safety",
+   "description": "Replacing and rebuilding fire apparatus."
+  },
+  {
+   "id": "fire-stations",
+   "name": "Fire Station Expansion & Rebuild",
+   "subject": "prop-a",
+   "category": "Public safety",
+   "description": "Expanding and rebuilding fire stations."
+  },
+  {
+   "id": "ps-facilities",
+   "name": "Public Safety Facilities Rehabilitation",
+   "subject": "prop-a",
+   "category": "Public safety",
+   "description": "Rehabilitation of existing public safety facilities."
+  },
+  {
+   "id": "austin-fuel",
+   "name": "Austin Parkway Fuel Station Rehabilitation",
+   "subject": "prop-a",
+   "category": "Public safety",
+   "description": "Rehabilitation of the fuel station on Austin Parkway."
+  },
+  {
+   "id": "swat",
+   "name": "SWAT Command Vehicles",
+   "subject": "prop-a",
+   "category": "Public safety",
+   "description": "Command vehicles for the SWAT team."
+  },
+  {
+   "id": "austin-pkwy-1",
+   "name": "Austin Parkway Phase I (Williams Trace to Lexington)",
+   "subject": "prop-b",
+   "category": "Streets and mobility",
+   "description": "Street project the source marks as one that uses Fort Bend County mobility bond matching funds."
+  },
+  {
+   "id": "settlers-way",
+   "name": "Settlers Way Blvd (Austin Pkwy to SH6)",
+   "subject": "prop-b",
+   "category": "Streets and mobility",
+   "description": "Street project the source marks as one that uses Fort Bend County mobility bond matching funds."
+  },
+  {
+   "id": "residential-streets",
+   "name": "Residential Street Reconstruction & Panel Replacement",
+   "subject": "prop-b",
+   "category": "Streets and mobility",
+   "description": "Rebuilding residential streets and replacing concrete panels."
+  },
+  {
+   "id": "austin-drainage",
+   "name": "Austin Parkway West Drainage Modifications",
+   "subject": "prop-c",
+   "category": "Drainage",
+   "description": "Drainage work listed under the drainage proposition. No dollar figure collected yet."
+  },
+  {
+   "id": "public-services-bldg",
+   "name": "Public Services Building Rehabilitation and Modernization",
+   "subject": "prop-d",
+   "category": "Municipal facilities",
+   "description": "Rehabilitation and modernization of the public services building."
+  },
+  {
+   "id": "animal-shelter",
+   "name": "Supplemental funding for new animal shelter",
+   "subject": "prop-e",
+   "category": "Animal shelter",
+   "description": "Extra bond funding for the planned new animal shelter."
+  }
+ ],
+ "observations": [
+  {
+   "id": "o1",
+   "projectId": "prop-a",
+   "metricType": "voter_authorization",
+   "value": 144500000,
+   "sourceId": "src-ci-sep",
+   "sourceLocator": "Page 9, Proposition A line",
+   "stage": "Proposed on the ballot"
+  },
+  {
+   "id": "o2",
+   "projectId": "prop-a",
+   "metricType": "voter_authorization",
+   "value": 144500000,
+   "sourceId": "src-city-nov",
+   "sourceLocator": "First bullet, approved propositions",
+   "stage": "Approved by voters"
+  },
+  {
+   "id": "o3",
+   "projectId": "prop-b",
+   "metricType": "voter_authorization",
+   "value": 118000000,
+   "sourceId": "src-ci-sep",
+   "sourceLocator": "Page 9, Proposition B line",
+   "stage": "Proposed on the ballot"
+  },
+  {
+   "id": "o4",
+   "projectId": "prop-b",
+   "metricType": "voter_authorization",
+   "value": 118000000,
+   "sourceId": "src-city-nov",
+   "sourceLocator": "Second bullet, approved propositions",
+   "stage": "Approved by voters"
+  },
+  {
+   "id": "o5",
+   "projectId": "prop-c",
+   "metricType": "voter_authorization",
+   "value": 35000000,
+   "sourceId": "src-ci-sep",
+   "sourceLocator": "Page 9, Proposition C line",
+   "stage": "Proposed on the ballot"
+  },
+  {
+   "id": "o6",
+   "projectId": "prop-c",
+   "metricType": "voter_authorization",
+   "value": 35000000,
+   "sourceId": "src-city-nov",
+   "sourceLocator": "Third bullet, approved propositions",
+   "stage": "Approved by voters"
+  },
+  {
+   "id": "o7",
+   "projectId": "prop-d",
+   "metricType": "voter_authorization",
+   "value": 40500000,
+   "sourceId": "src-ci-sep",
+   "sourceLocator": "Page 9, Proposition D line",
+   "stage": "Proposed on the ballot"
+  },
+  {
+   "id": "o8",
+   "projectId": "prop-e",
+   "metricType": "voter_authorization",
+   "value": 12000000,
+   "sourceId": "src-ci-sep",
+   "sourceLocator": "Page 9, Proposition E line",
+   "stage": "Proposed on the ballot"
+  },
+  {
+   "id": "o9",
+   "projectId": "bond-total",
+   "metricType": "voter_authorization",
+   "value": 350000000,
+   "sourceId": "src-ci-sep",
+   "sourceLocator": "Page 9, Total line",
+   "stage": "Proposed on the ballot"
+  },
+  {
+   "id": "o10",
+   "projectId": "bond-total",
+   "metricType": "voter_authorization",
+   "value": 350000000,
+   "sourceId": "src-city-nov",
+   "sourceLocator": "Opening sentence",
+   "stage": "Approved by voters"
+  },
+  {
+   "id": "o11",
+   "projectId": "pstf-3",
+   "metricType": "published_project_allocation",
+   "value": 32350000,
+   "sourceId": "src-ci-oct9",
+   "sourceLocator": "Page 9, Proposition A table"
+  },
+  {
+   "id": "o12",
+   "projectId": "fire-apparatus",
+   "metricType": "published_project_allocation",
+   "value": 17325000,
+   "sourceId": "src-ci-oct9",
+   "sourceLocator": "Page 9, Proposition A table"
+  },
+  {
+   "id": "o13",
+   "projectId": "fire-stations",
+   "metricType": "published_project_allocation",
+   "value": 17375000,
+   "sourceId": "src-ci-oct9",
+   "sourceLocator": "Page 9, Proposition A table"
+  },
+  {
+   "id": "o14",
+   "projectId": "ps-facilities",
+   "metricType": "published_project_allocation",
+   "value": 11625000,
+   "sourceId": "src-ci-oct9",
+   "sourceLocator": "Page 9, Proposition A table"
+  },
+  {
+   "id": "o15",
+   "projectId": "pd-hq",
+   "metricType": "published_project_allocation",
+   "value": 63200000,
+   "sourceId": "src-ci-oct9",
+   "sourceLocator": "Page 9, Proposition A table"
+  },
+  {
+   "id": "o16",
+   "projectId": "swat",
+   "metricType": "published_project_allocation",
+   "value": 1050000,
+   "sourceId": "src-ci-oct9",
+   "sourceLocator": "Page 9, Proposition A table"
+  },
+  {
+   "id": "o17",
+   "projectId": "austin-fuel",
+   "metricType": "published_project_allocation",
+   "value": 1575000,
+   "sourceId": "src-ci-oct9",
+   "sourceLocator": "Page 9, Proposition A table"
+  },
+  {
+   "id": "o18",
+   "projectId": "austin-pkwy-1",
+   "metricType": "published_project_allocation",
+   "value": 4500000,
+   "sourceId": "src-ci-oct9",
+   "sourceLocator": "Page 9, Proposition B table"
+  },
+  {
+   "id": "o19",
+   "projectId": "residential-streets",
+   "metricType": "published_project_allocation",
+   "value": 18300000,
+   "sourceId": "src-ci-oct9",
+   "sourceLocator": "Page 9, Proposition B table"
+  },
+  {
+   "id": "o20",
+   "projectId": "settlers-way",
+   "metricType": "published_project_allocation",
+   "value": 5350000,
+   "sourceId": "src-ci-oct9",
+   "sourceLocator": "Page 9, Proposition B table"
+  },
+  {
+   "id": "o21",
+   "projectId": "pstf-3",
+   "metricType": "published_project_allocation",
+   "value": 32350000,
+   "sourceId": "src-ci-oct16",
+   "sourceLocator": "Page 16, project list"
+  },
+  {
+   "id": "o22",
+   "projectId": "fire-apparatus",
+   "metricType": "published_project_allocation",
+   "value": 17330000,
+   "sourceId": "src-ci-oct16",
+   "sourceLocator": "Page 16, project list",
+   "note": "Source prints a rounded $17.33M."
+  },
+  {
+   "id": "o23",
+   "projectId": "fire-stations",
+   "metricType": "published_project_allocation",
+   "value": 17380000,
+   "sourceId": "src-ci-oct16",
+   "sourceLocator": "Page 16, project list",
+   "note": "Source prints a rounded $17.38M."
+  },
+  {
+   "id": "o24",
+   "projectId": "ps-facilities",
+   "metricType": "published_project_allocation",
+   "value": 11630000,
+   "sourceId": "src-ci-oct16",
+   "sourceLocator": "Page 16, project list",
+   "note": "Source prints a rounded $11.63M."
+  },
+  {
+   "id": "o25",
+   "projectId": "pd-hq",
+   "metricType": "published_project_allocation",
+   "value": 63200000,
+   "sourceId": "src-ci-oct16",
+   "sourceLocator": "Page 16, project list"
+  },
+  {
+   "id": "o26",
+   "projectId": "public-services-bldg",
+   "metricType": "published_project_allocation",
+   "value": 27830000,
+   "sourceId": "src-ci-oct16",
+   "sourceLocator": "Page 16, Proposition D list"
+  },
+  {
+   "id": "o27",
+   "projectId": "animal-shelter",
+   "metricType": "published_project_allocation",
+   "value": 12000000,
+   "sourceId": "src-ci-oct16",
+   "sourceLocator": "Page 16, Proposition E line"
+  }
+ ],
+ "dataQuality": [
+  "No official project IDs turned up in the sources I read, so projects are matched by name, proposition and amount. That is weaker than matching on IDs.",
+  "The October page 16 text lists some Proposition A projects under a Proposition D heading. I filed them under A, which matches the page 9 tables, and the A projects add up to exactly $144.5M. Check the original page layout.",
+  "Most project figures come from a newspaper reprinting city voter-guide content, not a city PDF. Replacing them with the city's own documents is the next step.",
+  "No adopted-budget or capital-plan (CIP) figures are collected yet, so there is no budget-versus-authorization comparison.",
+  "The city's live tracker was not read. Current project status and schedules are not verified here."
+ ]
+}
+
