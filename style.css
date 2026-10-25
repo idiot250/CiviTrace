@@ -1,0 +1,28 @@
+/*dark mode supremacy*/
+
+:root {
+  --bg: #0f141a;
+  --panel:#151c24;
+  --line: #27313c;
+  --text: #e3e7eb;
+  --muted: 92a0ae;
+  --link: #86b6e2;
+  --button: #2f5578;
+  --teal: #5db5a9;
+  --amber: #d8a54b;
+  --red: #d98b86;
+  --sans: 'IBM Plex Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.6 var(--sans);
+}
+
