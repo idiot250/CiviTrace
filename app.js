@@ -402,3 +402,39 @@ function showMethodology() {
     </ul>`;
 }
 
+
+function route() {
+  if (!data) return;
+  const [path, query] = location.hash.slice(1).split('?');
+  const parts = path.split('/').filter(Boolean);
+  const page = parts[0] || 'projects';
+
+  // highlight the current link in the sidebar
+  document.querySelectorAll('nav a').forEach(a => {
+    const current = page === 'project' ? 'projects' : page;
+    a.classList.toggle('active', a.dataset.page === current);
+  });
+
+  if (page === 'projects') showProjects();
+  else if (page === 'project') showProject(parts[1]);
+  else if (page === 'compare') showCompare(new URLSearchParams(query || ''));
+  else if (page === 'evidence') showEvidence();
+  else if (page === 'methodology') showMethodology();
+  else app.innerHTML = '<h1>Page not found</h1><p><a href="#/projects">Back to projects</a></p>';
+
+  window.scrollTo(0, 0);
+}
+
+fetch('data/data.json')
+  .then(res => res.json())
+  .then(json => {
+    data = json;
+    prepareData();
+    route();
+  })
+  .catch(() => {
+    app.innerHTML = '<div class="note warn"><b>Could not load data/data.json.</b> Browsers block this when the page is opened as a file. Run <code>python3 -m http.server</code> in this folder and open <code>http://localhost:8000</code>.</div>';
+  });
+
+window.addEventListener('hashchange', route);
+
