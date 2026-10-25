@@ -342,3 +342,63 @@ function showCompare(params) {
   drawResult();
 }
 
+//Methodology
+function showMethodology() {
+  // do the project figures add up to each proposition total?
+  const checks = data.propositions.filter(p => !p.program).map(prop => {
+    const totals = data.observations.filter(o => o.projectId === prop.id).sort((a, b) => a.publicationDate.localeCompare(b.publicationDate));
+    const authorized = totals[totals.length - 1].value;
+    const projects = data.projects.filter(p => p.subject === prop.id);
+    let sum = 0;
+    projects.forEach(p => {
+      const recs = recordsFor(p.id);
+      if (recs.length) sum += recs[0].value; // first figure listed (page 9 before page 16)
+    });
+    return { name: prop.name, authorized, sum, gap: authorized - sum };
+  });
+
+  app.innerHTML = `
+    <h1>Methodology</h1>
+
+    <h2>Money terms</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Term</th><th>Meaning</th><th>In the app?</th></tr></thead>
+      <tbody>
+        <tr><td>Voter authorization</td><td>${esc(data.metrics.voter_authorization.def)}</td><td>Yes</td></tr>
+        <tr><td>Published project allocation</td><td>${esc(data.metrics.published_project_allocation.def)}</td><td>Yes</td></tr>
+        <tr><td>Adopted budget</td><td>Money the city formally funds for one fiscal year.</td><td>Not yet</td></tr>
+        <tr><td>Planning estimate</td><td>A later-year plan in a capital improvement program, which can change.</td><td>Not yet</td></tr>
+        <tr><td>Expenditure</td><td>Money actually spent.</td><td>Not yet</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>Rules</h2>
+    <ul>
+      <li>Two records are compared only if they measure the same thing for the same project and period.</li>
+      <li>Change is the later figure minus the earlier one, and percent is the change divided by the earlier figure.</li>
+      <li>A missing figure stays missing; it is never treated as $0.</li>
+      <li>Three dates are different things: when a document was published, when I retrieved it (${niceDate(data.meta.retrievedAt)}), and when the city last updated the information.</li>
+      <li>"Source linked" only means a record has a URL and a location. It does not mean the source is correct.</li>
+    </ul>
+
+    <h2>Do the project figures add up?</h2>
+    <p class="small muted">Adds up the project figures I have entered and compares them to each proposition total. A gap usually means projects I haven't entered yet.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Proposition</th><th class="right">Authorized</th><th class="right">Entered</th><th class="right">Gap</th><th>Result</th></tr></thead>
+      <tbody>${checks.map(c => `<tr>
+        <td>${esc(c.name)}</td><td class="right">${money(c.authorized)}</td><td class="right">${money(c.sum)}</td><td class="right">${money(c.gap)}</td>
+        <td>${c.gap === 0 ? '<span class="tag green">Adds up exactly</span>' : '<span class="tag yellow">Not all projects entered</span>'}</td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+
+    <h2>Known gaps</h2>
+    ${data.dataQuality.map(t => `<div class="note warn">${esc(t)}</div>`).join('')}
+
+    <h2>What this can't tell you:</h2>
+    <ul>
+      <li>Whether a project is on time, late or over budget</li>
+      <li>How much has been spent</li>
+      <li>Whether a change in a published figure is good or bad</li>
+    </ul>`;
+}
+
