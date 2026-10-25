@@ -113,4 +113,112 @@ function compareRecords(x, y) {
   };
 }
 
+///////
+//Project listing and id
+function showProjects() {
+  app.innerHTML = `
+    <h1>Projects</h1>
+    <p class="intro">Projects from Sugar Land's 2024 bond program, with the published figures and documents behind them.</p>
+    <div class="note warn"><b>Hand-entered data.</b> ${esc(data.meta.dataNote)}</div>
+    <div class="filters">
+      <input type="search" id="search" placeholder="Search projects" aria-label="Search projects">
+      <select id="prop" aria-label="Filter by proposition">
+        <option value="">All propositions</option>
+        ${data.propositions.filter(p => !p.program).map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('')}
+      </select>
+    </div>
+    <div id="list"></div>`;
+
+  const search = document.getElementById('search');
+  const prop = document.getElementById('prop');
+
+  function drawList() {
+    const text = search.value.trim().toLowerCase();
+    const rows = data.projects.filter(p => {
+      if (prop.value && p.subject !== prop.value) return false;
+      return (p.name + ' ' + p.category).toLowerCase().includes(text);
+    });
+
+    if (rows.length === 0) {
+      document.getElementById('list').innerHTML = '<p class="muted">No projects match. Try clearing the search.</p>';
+      return;
+    }
+
+    document.getElementById('list').innerHTML = `
+      <p class="small muted">${rows.length} of ${data.projects.length} projects</p>
+      <div class="scroll"><table>
+        <thead><tr><th>Project</th><th>Proposition</th><th class="right">Latest figure</th><th>Records</th></tr></thead>
+        <tbody>${rows.map(p => {
+          const recs = recordsFor(p.id);
+          const first = recs[0];
+          let status = '<span class="tag grey">No figure yet</span>';
+          if (recs.length === 1) status = '<span class="tag yellow">One publication</span>';
+          if (recs.length > 1) status = '<span class="tag green">Can compare</span>';
+          return `<tr>
+            <td><a href="#/project/${p.id}">${esc(p.name)}</a></td>
+            <td>${esc(subjectName(p.subject).split(':')[0])}</td>
+            <td class="right">${first ? money(first.value) : '—'}</td>
+            <td>${status}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table></div>`;
+  }
+
+  search.addEventListener('input', drawList);
+  prop.addEventListener('change', drawList);
+  drawList();
+}
+
+function showProject(id) {
+  const p = getProject(id);
+  if (!p) {
+    app.innerHTML = '<h1>Project not found</h1><p><a href="#/projects">Back to projects</a></p>';
+    return;
+  }
+  const recs = recordsFor(id);
+  const sourceIds = [...new Set(recs.map(r => r.sourceId))];
+  const pair = findPairs().find(pr => pr[0].projectId === id);
+
+  const recordsHtml = recs.length === 0
+    ? '<div class="note warn"><b>No figure collected yet.</b> That does not mean $0 -- It means that the sources I used listed this project without a dollar amount.</div>'
+    : recs.map(r => `
+      <div class="record">
+        <div class="big">${money(r.value)}</div>
+        <dl>
+          <dt>Measures</dt><dd>${esc(data.metrics[r.metricType].label)}</dd>
+          <dt>Published</dt><dd>${niceDate(r.publicationDate)}</dd>
+          <dt>Source</dt><dd>${link(getSource(r.sourceId).url, getSource(r.sourceId).title)}</dd>
+          <dt>Location</dt><dd>${esc(r.sourceLocator)}</dd>
+          ${r.note ? `<dt>Note</dt><dd>${esc(r.note)}</dd>` : ''}
+        </dl>
+      </div>`).join('');
+
+  const metricTypes = [...new Set(recs.map(r => r.metricType))];
+
+  app.innerHTML = `
+    <a class="back" href="#/projects">← All projects</a>
+    <h1>${esc(p.name)}</h1>
+    <p class="intro">${esc(p.category)} · ${esc(subjectName(p.subject))}</p>
+    <p>${link(data.meta.trackerUrl, "City's bond project tracker")}</p>
+    <div class="two-col">
+      <div>
+        <h2>About</h2>
+        <p>${esc(p.description)}</p>
+        <p class="small muted">status and schedule are not checked by CiviTrace.</p>
+        <h2>Published figures</h2>
+        ${metricTypes.map(t => `<p class="small muted"><b>${esc(data.metrics[t].label)}:</b> ${esc(data.metrics[t].def)}</p>`).join('')}
+        ${recordsHtml}
+        ${pair
+          ? `<p><a class="button" href="#/compare?a=${pair[0].id}&b=${pair[1].id}">Compare these two records</a></p>`
+          : recs.length ? '<p class="small muted">Only one publication so far, so there is nothing to compare yet!</p>' : ''}
+      </div>
+      <div>
+        <h2>Sources</h2>
+        ${sourceIds.length ? sourceIds.map(sid => {
+          const s = getSource(sid);
+          return `<p><b>${esc(s.title)}</b><br><span class="small muted">${esc(s.org)}<br>${esc(s.type)}</span><br>${link(s.url, 'Open source :)')}</p>`;
+        }).join('') : '<p class="muted">None yet.</p>'}
+      </div>
+    </div>`;
+}
 
