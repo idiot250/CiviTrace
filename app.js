@@ -39,3 +39,51 @@ function niceDate(d){
 function link(url, text){
   return `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(text)}↗</a>`;
 }
+
+//looking things up from data
+const getSource = id => data.sources.find(s => s.id === id);
+const getProject = id => data.projects.find(p => p.id === id);
+const getRecord = id => data.observations.find(o => o.id === id);
+
+// a project id OR a proposition id
+function subjectName(id) {
+  const found = getProject(id) || data.propositions.find(p => p.id === id);
+  return found ? found.name : id;
+}
+
+// all figures for one project with oldest first
+function recordsFor(projectId) {
+  return data.observations
+    .filter(o => o.projectId === projectId)
+    .sort((a, b) => a.publicationDate.localeCompare(b.publicationDate));
+}
+
+// fills in fields i didn't want to type 27 times in the JSON
+function prepareData() {
+  data.observations.forEach(o => {
+    o.publicationDate = getSource(o.sourceId).publicationDate;
+    o.currency = 'USD';
+    o.fiscalPeriod = '2024 bond program';
+    o.retrievedAt = data.meta.retrievedAt;
+    o.comparisonGroup = o.projectId + '|' + o.metricType;
+  });
+}
+
+// every pair of records that share a comparison group
+function findPairs() {
+  const groups = {};
+  data.observations.forEach(o => {
+    if (!groups[o.comparisonGroup]) groups[o.comparisonGroup] = [];
+    groups[o.comparisonGroup].push(o);
+  });
+  const pairs = [];
+  Object.values(groups).forEach(list => {
+    list.sort((a, b) => a.publicationDate.localeCompare(b.publicationDate));
+    for (let i = 0; i < list.length; i++) {
+      for (let j = i + 1; j < list.length; j++) pairs.push([list[i], list[j]]);
+    }
+  });
+  return pairs;
+}
+
+
