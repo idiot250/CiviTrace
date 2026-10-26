@@ -77,7 +77,7 @@ CiviTrace is an exploratory transparency tool, not an official financial reporti
 These limitations are part of the project's methodology: incomplete evidence should remain visible and transparent rather than being silently treated as certainty.
 
 ## In-Browser Demo
-https://idiot250.github.io/civitrace
+https://idiot250.github.io/CiviTrace
 
 ## Or run locally!
 
