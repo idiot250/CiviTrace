@@ -95,8 +95,8 @@ Supprted (tested) browsers:
 Clone the repository:
 
 ```
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/idiot250/CiviTrace
+cd CiviTrace
 ```
 
 Start a local HTTP server from the project root:
